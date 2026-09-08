@@ -1,25 +1,28 @@
 # GameGuide Review API
 
-*A Laravel REST API demonstrating backend fundamentals: Eloquent relationships, request validation, API resource shaping, and Sanctum authentication — built as a companion backend to my [GameGuide Review Console](https://cohort-review-console.netlify.app) React dashboard.*
+*A Laravel REST API demonstrating backend fundamentals: Eloquent relationships, request validation, API resource shaping, and Sanctum authentication — built as a companion backend to my [GameGuide Review Console](https://gameguide-review-console.netlify.app) React dashboard.*
+
+**Live API:** [https://gameguide-api.thonky.com](https://gameguide-api.thonky.com) — try it: [gameguide-api.thonky.com/api/games](https://gameguide-api.thonky.com/api/games)
 
 **Highlights:**
 - RESTful API with resource controllers, form request validation, and typed JSON resources
 - Token-based auth (Laravel Sanctum) protecting write access to sensitive endpoints
 - Seeded, filterable data — games → guides → review notes
-- Feature-tested with PHPUnit
+- Feature-tested with PHPUnit (7/7 passing)
+- Deployed on self-managed LAMP hosting (Linux/Apache/MySQL/PHP) under my own domain, not a managed PaaS
 
-**Stack:** PHP 8 · Laravel 11 · SQLite · Sanctum · PHPUnit
+**Stack:** PHP 8.5 · Laravel 13 · MySQL · Sanctum · PHPUnit
 
 ---
 
 ## Why this project exists
 
-This project demonstrates core Laravel backend patterns: Eloquent relationships, database migrations/seeders, Form Request validation, API Resource response shaping, and Sanctum token authentication. The domain (games → guides → review notes) mirrors an editorial review workflow for walkthrough content on [Thonky.com](https://thonky.com) — the same kind of workflow built out in the [Review Notes WordPress plugin](https://github.com/carolyneby/review-notes-plugin), so the three projects together tell a consistent full-stack story: a WordPress plugin managing review status on the live site, a React console for browsing and managing that review queue, and this API as the backend that could power it.
+This project demonstrates core Laravel backend patterns: Eloquent relationships, database migrations/seeders, Form Request validation, API Resource response shaping, and Sanctum token authentication. The domain (games → guides → review notes) mirrors an editorial review workflow for walkthrough content on [Thonky.com](https://thonky.com) — the same kind of workflow built out in the [Review Notes WordPress plugin](https://github.com/carolyneby/review-notes-plugin), so the three projects together tell a consistent full-stack story: a WordPress plugin managing review status on the live site, a React console for browsing and managing that review queue, and this API as the backend that powers it.
 
 ## Stack
 
-- Laravel 11
-- SQLite (zero-config local development)
+- Laravel 13
+- MySQL (production) — SQLite supported for local development
 - Laravel Sanctum (API token authentication)
 - PHPUnit (feature tests)
 
@@ -31,14 +34,14 @@ Game (title, platform, release_year)
        └─ hasMany ReviewNote (body, author)
 ```
 
-## Setup
+## Local development setup
 
 ```bash
 composer install
 cp .env.example .env
 php artisan key:generate
 
-# SQLite setup
+# SQLite setup (local dev)
 touch database/database.sqlite
 # In .env, set: DB_CONNECTION=sqlite
 
@@ -73,9 +76,9 @@ php artisan test
 ## Example: filtering guides awaiting review
 
 ```
-GET /api/guides?game_id=1&status=in_review
+GET https://gameguide-api.thonky.com/api/guides?status=in_review
 ```
 
-## Notes
+## Deployment notes
 
-In a production deployment, the game/guide write endpoints would also sit behind authentication — they're left open here to make the API easy to explore without needing a token for every request. The review-notes endpoints are protected to demonstrate Sanctum usage specifically.
+This API is deployed on self-managed LAMP hosting under my own domain (`gameguide-api.thonky.com`), rather than a managed platform like Render or Railway — set up via SSH, Composer, and a symlinked document root pointing at Laravel's `public/` directory, backed by a dedicated MySQL database. In a production deployment serving real traffic, the game/guide write endpoints would also sit behind authentication — they're left open here to make the API easy to explore without needing a token for every request. The review-notes endpoints are protected to demonstrate Sanctum usage specifically.
