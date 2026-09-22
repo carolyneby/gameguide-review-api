@@ -1,6 +1,6 @@
 # GameGuide Review API
 
-A Laravel REST API demonstrating backend fundamentals: Eloquent relationships, request validation, API resource shaping, and Sanctum authentication — built as a companion backend to my [GameGuide Review Console](https://gameguide-review-console.netlify.app) React dashboard.
+A Laravel REST API demonstrating backend fundamentals: Eloquent relationships, request validation, API resource shaping, and Sanctum authentication — built as a shared backend for two companion frontend consoles: a [React admin console](https://gameguide-review-console.netlify.app) and a [Vue 3 admin console](https://gameguide-vue-console.netlify.app), both built against the same API.
 
 **Live API:** [https://gameguide-api.thonky.com](https://gameguide-api.thonky.com) — try it: [gameguide-api.thonky.com/api/games](https://gameguide-api.thonky.com/api/games)
 
@@ -18,7 +18,7 @@ A Laravel REST API demonstrating backend fundamentals: Eloquent relationships, r
 
 ## Why this project exists
 
-This project demonstrates core Laravel backend patterns: Eloquent relationships, database migrations/seeders, Form Request validation, API Resource response shaping, and Sanctum token authentication. The domain (games → guides → review notes) mirrors an editorial review workflow for walkthrough content on Thonky.com — the same kind of workflow built out in the [Review Notes WordPress plugin](https://github.com/carolyneby/review-notes-plugin), so the three projects together tell a consistent full-stack story: a WordPress plugin managing review status on the live site, a React console for browsing and managing that review queue, and this API as the backend that powers it.
+This project demonstrates core Laravel backend patterns: Eloquent relationships, database migrations/seeders, Form Request validation, API Resource response shaping, and Sanctum token authentication. The domain (games → guides → review notes) mirrors an editorial review workflow for walkthrough content on Thonky.com — the same kind of workflow built out in the [Review Notes WordPress plugin](https://github.com/carolyneby/review-notes-plugin). Two separate frontend consoles consume this same API — one built in React, one in Vue 3 — as a deliberate side-by-side demonstration of building the same interface in both frameworks against a shared backend.
 
 ## Stack
 
